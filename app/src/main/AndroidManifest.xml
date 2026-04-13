@@ -24,7 +24,9 @@
         </activity>
 
         <activity android:name=".BasqueteActivity" />
-        <activity android:name=".CalculadoraActivity"/>
+        <activity android:name=".CalculadoraActivity"
+                  android:theme="@style/Theme.Calculadora"
+            />
         <activity android:name=".TarefasActivity"/>
 
     </application>
