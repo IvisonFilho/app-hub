@@ -80,13 +80,13 @@
                         android:id="@+id/timeA"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
                         android:gravity="center_vertical"
                         android:paddingVertical="12dp"
                         android:text="Time A"
                         android:textColor="?attr/colorOnSurfaceVariant"
                         android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:fontFamily="sans-serif"/>
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
 

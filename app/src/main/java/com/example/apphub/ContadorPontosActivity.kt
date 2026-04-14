@@ -18,11 +18,9 @@ class ContadorPontosActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // 1. Carrega a preferência
         sharedPreferences = getSharedPreferences("ThemePrefs", Context.MODE_PRIVATE)
         val isDarkMode = sharedPreferences.getBoolean("isDarkMode", false)
 
-        // 2. Aplica o tema ANTES de desenhar a tela
         if (isDarkMode) {
             setTheme(R.style.DarkThemeBasquete)
         } else {
@@ -32,7 +30,6 @@ class ContadorPontosActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_contador_pontos)
 
-        // Inicialização das Views
         pTimeA = findViewById(R.id.placarTimeA)
         pTimeB = findViewById(R.id.placarTimeB)
 
@@ -44,11 +41,9 @@ class ContadorPontosActivity : AppCompatActivity() {
         val doisPontosTimeB: Button = findViewById(R.id.doisPontosB)
         val tresPontosTimeB : Button = findViewById(R.id.tresPontosB)
 
-        // 3. Configura o Switch de Tema
         val switchTema: SwitchCompat = findViewById(R.id.switchTema)
         switchTema.isChecked = isDarkMode
 
-        // Deixa a interface mais interativa mudando o texto
         if (isDarkMode) {
             switchTema.text = "Modo Claro"
         } else {

@@ -6,7 +6,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,17 +14,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.apphub.ui.theme.AppHubTheme
+import kotlin.jvm.java
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            AppHubTheme{
+            AppHubTheme {
                 HubScreen(
-                    onBasqueteClick = { startActivity(Intent(this, BasqueteActivity::class.java))},
-                    onCalculadoraClick = { startActivity(Intent(this, CalculadoraActivity::class.java))},
-                    onBlocoDeNotasClick = {}
+                    onBasqueteClick = {
+                        startActivity(Intent(this, ContadorPontosActivity::class.java))
+                    },
+                    onCalculadoraClick = {
+                        startActivity(Intent(this, CalculadoraActivity::class.java))
+                    },
+                    onBlocoDeNotasClick = {
+                        startActivity(Intent(this, TarefasActivity::class.java))
+                    }
                 )
             }
         }
@@ -34,8 +40,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun HubScreen(
-    onBasqueteClick: () ->Unit,
-    onCalculadoraClick:() -> Unit,
+    onBasqueteClick: () -> Unit,
+    onCalculadoraClick: () -> Unit,
     onBlocoDeNotasClick: () -> Unit
 ) {
     Scaffold { innerPadding ->
@@ -94,6 +100,5 @@ fun HubScreen(
                 Text("Bloco De Notas", fontSize = 16.sp)
             }
         }
-
     }
 }
