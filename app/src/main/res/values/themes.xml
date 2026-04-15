@@ -3,7 +3,6 @@
 
     <style name="Theme.AppHub" parent="android:Theme.Material.Light.NoActionBar" />
 
-    <!-- Base application theme. -->
     <style name="Base.Theme.Calculadora" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/cardview_dark_background</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -13,5 +12,9 @@
     </style>
 
     <style name="Theme.Calculadora" parent="Base.Theme.Calculadora" />
+
+    <style name="BotaoQuadrado" parent="">
+        <item name="cornerSize">18dp</item>
+    </style>
 
 </resources>

@@ -1,10 +1,14 @@
 package com.example.apphub
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 
 class CalculadoraActivity : AppCompatActivity() {
 
@@ -13,9 +17,33 @@ class CalculadoraActivity : AppCompatActivity() {
     private var operand: Double? = null
     private var pendingOp: String? = null
 
+    private lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        sharedPreferences = getSharedPreferences("ThemePrefs", Context.MODE_PRIVATE)
+        val isDarkMode = sharedPreferences.getBoolean("isDarkMode", false)
+
+        if (isDarkMode) {
+            setTheme(R.style.DarkThemeBasquete)
+        } else {
+            setTheme(R.style.LightThemeBasquete)
+        }
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calculadora)
+
+        val btnBack = findViewById<ImageButton>(R.id.btnBack)
+        val switchTema: SwitchCompat = findViewById(R.id.switchTema)
+
+        btnBack.setOnClickListener {
+        }
+
+        switchTema.isChecked = isDarkMode
+
+        switchTema.setOnCheckedChangeListener { _, isChecked ->
+            sharedPreferences.edit().putBoolean("isDarkMode", isChecked).apply()
+            recreate()
+        }
 
         tvDisplay = findViewById(R.id.txtResultado)
 
