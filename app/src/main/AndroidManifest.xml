@@ -27,7 +27,7 @@
         <activity android:name=".CalculadoraActivity"
                   android:theme="@style/Theme.Calculadora"
             />
-        <activity android:name=".BlocoDeNotasActivity"/>
+        <activity android:name=".ToDoListActivity"/>
 
     </application>
 

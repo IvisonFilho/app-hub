@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<MaterialButton>(R.id.btnBlocoDeNotas).setOnClickListener {
-            startActivity(Intent(this, BlocoDeNotasActivity::class.java))
+            startActivity(Intent(this, ToDoListActivity::class.java))
         }
     }
 }
