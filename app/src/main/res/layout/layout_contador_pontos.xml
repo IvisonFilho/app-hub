@@ -15,14 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="monospace"
-        android:text="Modo Escuro"
-        android:textColor="?attr/colorOnSurface"
-        android:textSize="16sp" />
+        app:thumbIcon="@drawable/seletor_icone_tema" />
 
     <TextView
         android:id="@+id/tituloApp"
@@ -43,6 +36,7 @@
         android:orientation="horizontal"
         android:layout_centerInParent="true"
         android:paddingHorizontal="8dp">
+
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
@@ -66,15 +60,21 @@
                     <Button
                         android:id="@+id/removerPontoTimeA"
                         style="@style/Widget.Material3.Button.TonalButton"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:layout_alignParentEnd="true"
                         android:insetLeft="0dp"
                         android:insetTop="0dp"
                         android:insetRight="0dp"
                         android:insetBottom="0dp"
+                        android:padding="0dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
                         android:text="-1"
-                        app:cornerRadius="12dp"/>
+                        android:textSize="14sp"
+                        android:textColor="@android:color/white"
+                        app:backgroundTint="#D32F2F"
+                        app:cornerRadius="8dp"/>
 
                     <TextView
                         android:id="@+id/timeA"
@@ -150,15 +150,21 @@
                     <Button
                         android:id="@+id/removerPontoTimeB"
                         style="@style/Widget.Material3.Button.TonalButton"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:layout_alignParentEnd="true"
                         android:insetLeft="0dp"
                         android:insetTop="0dp"
                         android:insetRight="0dp"
                         android:insetBottom="0dp"
+                        android:padding="0dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
                         android:text="-1"
-                        app:cornerRadius="12dp"/>
+                        android:textSize="14sp"
+                        android:textColor="@android:color/white"
+                        app:backgroundTint="#D32F2F"
+                        app:cornerRadius="8dp"/>
 
                     <TextView
                         android:id="@+id/timeB"
