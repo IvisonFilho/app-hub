@@ -6,6 +6,10 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import android.os.SystemClock
+import android.os.Handler
+import android.os.Looper
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 
@@ -16,6 +20,15 @@ class ContadorPontosActivity : AppCompatActivity() {
     private lateinit var pTimeA: TextView
     private lateinit var pTimeB: TextView
     private lateinit var sharedPreferences: SharedPreferences
+
+    private lateinit var tvCronometro: TextView
+    private var isRunning: Boolean = false
+    private var startTime = 0L
+    private var timeInMilliseconds = 0L
+    private var timeSwapBuff = 0L
+    private var updateTime = 0L
+    private var handler = Handler(Looper.getMainLooper())
+    private lateinit var runnable: Runnable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         sharedPreferences = getSharedPreferences("ThemePrefs", Context.MODE_PRIVATE)
@@ -44,15 +57,47 @@ class ContadorPontosActivity : AppCompatActivity() {
         val switchTema: SwitchCompat = findViewById(R.id.switchTema)
         switchTema.isChecked = isDarkMode
 
-        if (isDarkMode) {
-            switchTema.text = "Modo Claro"
-        } else {
-            switchTema.text = "Modo Escuro"
-        }
-
         switchTema.setOnCheckedChangeListener { _, isChecked ->
             sharedPreferences.edit().putBoolean("isDarkMode", isChecked).apply()
             recreate()
+        }
+
+        tvCronometro = findViewById(R.id.cronometro)
+        val btnPlayPause: Button = findViewById(R.id.btnPlayPause)
+        val btnFinalizar: Button = findViewById(R.id.btnFinalizar)
+
+        runnable = object : Runnable {
+            override fun run() {
+                timeInMilliseconds = SystemClock.uptimeMillis() - startTime
+                updateTime = timeSwapBuff + timeInMilliseconds
+
+                val secs = (updateTime / 1000).toInt()
+                val mins = secs / 60
+                val milliseconds = (updateTime % 1000).toInt()
+                val seconds = secs % 60
+
+                tvCronometro.text = String.format("%02d:%02d.%02d", mins, seconds, milliseconds / 10)
+
+                handler.postDelayed(this, 10)
+            }
+        }
+
+        btnPlayPause.setOnClickListener {
+            if (isRunning) {
+                timeSwapBuff += timeInMilliseconds
+                handler.removeCallbacks(runnable)
+                isRunning = false
+                btnPlayPause.text = "Play"
+            } else {
+                startTime = SystemClock.uptimeMillis()
+                handler.postDelayed(runnable, 0)
+                isRunning = true
+                btnPlayPause.text = "Pause"
+            }
+        }
+
+        btnFinalizar.setOnClickListener {
+            finalizarPartida(btnPlayPause)
         }
 
         val removerPontoTimeA: Button = findViewById(R.id.removerPontoTimeA)
@@ -108,5 +153,40 @@ class ContadorPontosActivity : AppCompatActivity() {
         pTimeB.text = pontuacaoTimeB.toString()
 
         Toast.makeText(this, "Placar Reiniciado", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun finalizarPartida(btnPlayPause: Button) {
+        handler.removeCallbacks(runnable)
+        isRunning = false
+        btnPlayPause.text = "Play"
+
+        val mensagemResultado = when {
+            pontuacaoTimeA > pontuacaoTimeB -> "O Time A venceu a partida!"
+            pontuacaoTimeB > pontuacaoTimeA -> "O Time B venceu a partida!"
+            else -> "A partida terminou em Empate!"
+        }
+
+        AlertDialog.Builder(this)
+            .setTitle("Fim de Jogo \uD83C\uDFC0")
+            .setMessage("$mensagemResultado\n\nPlacar Final:\nTime A: $pontuacaoTimeA  x  Time B: $pontuacaoTimeB\nTempo Final: ${tvCronometro.text}")
+            .setPositiveButton("Nova Partida") { dialog, _ ->
+                reiniciarPartida()
+                resetarCronometro()
+                dialog.dismiss()
+            }
+            .setNegativeButton("Fechar") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .show()
+    }
+
+    private fun resetarCronometro() {
+        startTime = 0L
+        timeInMilliseconds = 0L
+        timeSwapBuff = 0L
+        updateTime = 0L
+        tvCronometro.text = "00:00.00"
+        handler.removeCallbacks(runnable)
     }
 }

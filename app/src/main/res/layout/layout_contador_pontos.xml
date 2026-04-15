@@ -34,7 +34,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_centerInParent="true"
+        android:layout_below="@id/layoutCronometro"
+        android:layout_marginTop="16dp"
         android:paddingHorizontal="8dp">
 
 
@@ -218,6 +219,42 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutCronometro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tituloApp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/cronometro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:text="00:00.00" />
+
+        <Button
+            android:id="@+id/btnPlayPause"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Play" />
+
+        <Button
+            android:id="@+id/btnFinalizar"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Finalizar" />
     </LinearLayout>
 
     <Button
