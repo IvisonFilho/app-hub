@@ -97,7 +97,22 @@ class ContadorPontosActivity : AppCompatActivity() {
         }
 
         btnFinalizar.setOnClickListener {
-            finalizarPartida(btnPlayPause)
+            AlertDialog.Builder(this)
+                .setTitle("Finalizar Partida")
+                .setMessage("Você realmente deseja finalizar a partida?")
+                .setPositiveButton("Sim") { dialog, _ ->
+                    finalizarPartida(btnPlayPause)
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Não") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
+
+        val btnVoltar: android.widget.ImageButton = findViewById(R.id.btnVoltar)
+        btnVoltar.setOnClickListener {
+            finish()
         }
 
         val removerPontoTimeA: Button = findViewById(R.id.removerPontoTimeA)
@@ -116,7 +131,19 @@ class ContadorPontosActivity : AppCompatActivity() {
         doisPontosTimeB.setOnClickListener { adicionarPontos(2, "B") }
         tresPontosTimeB.setOnClickListener { adicionarPontos(3, "B") }
 
-        reiniciar.setOnClickListener { reiniciarPartida() }
+        reiniciar.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle("Reiniciar Partida")
+                .setMessage("Você realmente deseja reiniciar a partida? O placar e o cronômetro serão zerados.")
+                .setPositiveButton("Sim") { dialog, _ ->
+                    reiniciarPartida()
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Não") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
     }
 
     fun adicionarPontos(pontos: Int, time: String) {
@@ -152,7 +179,12 @@ class ContadorPontosActivity : AppCompatActivity() {
         pontuacaoTimeB = 0
         pTimeB.text = pontuacaoTimeB.toString()
 
-        Toast.makeText(this, "Placar Reiniciado", Toast.LENGTH_SHORT).show()
+        resetarCronometro()
+
+        Toast.makeText(
+            this,
+            "Placar e Cronômetro Reiniciados",
+            Toast.LENGTH_SHORT).show()
     }
 
     private fun finalizarPartida(btnPlayPause: Button) {
