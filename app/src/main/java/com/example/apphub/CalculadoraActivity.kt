@@ -37,6 +37,19 @@ class CalculadoraActivity : AppCompatActivity() {
             findViewById<Button>(id).setOnClickListener { onOperator(op) }
         }
 
+        val scientificOps = listOf(
+            "√" to R.id.btnRaiz,
+            "sin" to R.id.btnSin,
+            "cos" to R.id.btnCos,
+            "log" to R.id.btnLog,
+            "x²" to R.id.btnQuadrado,
+            "%" to R.id.btnPorcentagem
+        )
+
+        scientificOps.forEach { (op, id) ->
+            findViewById<Button>(id).setOnClickListener { onScientificOperator(op) }
+        }
+
         findViewById<Button>(R.id.btnIgual).setOnClickListener { onEquals() }
         findViewById<Button>(R.id.btnClear).setOnClickListener { clearAll() }
         findViewById<Button>(R.id.btnBackspace).setOnClickListener { backspace() }
@@ -60,6 +73,22 @@ class CalculadoraActivity : AppCompatActivity() {
             currentInput = ""
         }
         pendingOp = op
+        updateDisplay()
+    }
+
+    private fun onScientificOperator(op: String) {
+        val value = currentInput.toDoubleOrNull() ?: operand ?: return
+        val result = when (op) {
+            "√" -> kotlin.math.sqrt(value)
+            "sin" -> kotlin.math.sin(Math.toRadians(value))
+            "cos" -> kotlin.math.cos(Math.toRadians(value))
+            "log" -> kotlin.math.log10(value)
+            "x²" -> value * value
+            "%" -> value / 100.0
+            else -> value
+        }
+        currentInput = result.toString()
+        operand = null
         updateDisplay()
     }
 
