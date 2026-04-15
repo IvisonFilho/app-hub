@@ -36,6 +36,7 @@ class CalculadoraActivity : AppCompatActivity() {
         val switchTema: SwitchCompat = findViewById(R.id.switchTema)
 
         btnBack.setOnClickListener {
+            finish()
         }
 
         switchTema.isChecked = isDarkMode
